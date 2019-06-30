@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import ThreeOrbitControls from 'three-orbitcontrols';
 import {
 	useThree,
@@ -20,11 +20,9 @@ export default function OrbitControlsComponent ({
 		camera
 	} = useThree();
 
-	let controls = null;
-
-	useEffect(() => {
+	const controls = useMemo(() => {
 		console.log('-- new ThreeOrbitControls');
-		controls = new ThreeOrbitControls(camera, canvas);
+		const controls = new ThreeOrbitControls(camera, canvas);
 		controls.damping = damping;
 		controls.minAzimuthAngle = minAzimuthAngle;
 		controls.maxAzimuthAngle = maxAzimuthAngle;
@@ -34,13 +32,23 @@ export default function OrbitControlsComponent ({
 
 		controls.autoRotate = !!autoRotateSpeed;
 		controls.autoRotateSpeed = autoRotateSpeed;
+		return controls;
+	}, [camera, canvas,
+		damping,
+		minAzimuthAngle,
+		maxAzimuthAngle,
+		autoRotateSpeed,
+		enablePan,
+		enableRotate,
+		enableZoom]);
+
+	useEffect(() => {
 		// scene.background = new Color(0x000000);
 		return () => {
 			console.log('-- dispose ThreeOrbitControls');
 			controls.dispose();
-			controls = null;
 		}
-	}, [camera, canvas]);
+	}, []);
 
 	useRender(() => {
 		if (!controls) {

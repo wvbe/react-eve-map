@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Tree from './scenes/Tree';
+import React from 'react';
+import StarMap from './scenes/StarMap';
 
 export default function App () {
-	return <Tree />
+	return <StarMap />
 }

@@ -14,8 +14,7 @@ export default function OrbitControlsComponent ({
 }) {
 	const {
 		canvas,
-		camera,
-		render
+		camera
 	} = useThree();
 
 	let controls = null;
