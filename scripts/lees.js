@@ -1,15 +1,26 @@
 
 
+
 function convertRawDataToUsableData() {
 	const rawDataRows = require('./mapSolarSystems.json').Sheet1;
-	const firstRow = rawDataRows.shift();
+	const rawDataJumps = require('./universe-pretty.json').jumps;
+	const jumps = rawDataJumps
+		.map(jump => [jump.from, jump.to].sort())
+		.filter((jump, i, all) => i !== all.findIndex(j => j[0] === jump[0] && j[1] === jump[1]));
+	// [[a, b], []]
 
-	const constellations = rawDataRows.map(row => Object.keys(row).reduce((obj, letter) => ({
+	const firstRow = rawDataRows.shift();
+	const solarSystems = rawDataRows.map(row => Object.keys(row).reduce((obj, letter) => ({
 		...obj,
 		[firstRow[letter]]: row[letter]
 	}), {}));
 
-	return constellations;
+
+
+	return {
+		solarSystems,
+		jumps
+	};
 }
 
 // Output, array of:

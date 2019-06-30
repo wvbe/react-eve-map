@@ -18,7 +18,7 @@
 	"eject": "react-scripts eject",
 	"deploy": "gh-pages --dist build",
     "build-and-deploy": "npm run build && npm run deploy",
-    "build-constellations-json": "node ./scripts/lees > src/constellations.json"
+    "build-data": "node ./scripts/lees > src/data.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,9 +34,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^2.0.1"
   },
   "homepage": "."
 }
