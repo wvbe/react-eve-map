@@ -8,7 +8,8 @@ import { Canvas } from 'react-three-fiber';
 import OrbitControls from './compositions/OrbitControls';
 import Background from './compositions/Background';
 
-export default function Tree({ solarSystems, infestedSolarSystems, onSolarSystemClick, jumps }) {
+const DEFAULT_CAMERA_FOCUS = new THREE.Vector3(0, 0, 0);
+export default function Tree({ selectedSolarSystem, solarSystems, infestedSolarSystems, onSolarSystemClick, jumps }) {
 	console.log('Render StarMap');
 	const solarSystemsById = useMemo(
 		() => {
@@ -24,6 +25,7 @@ export default function Tree({ solarSystems, infestedSolarSystems, onSolarSystem
 	);
 
 	const camera = useMemo(() => {
+		console.log('useMemo camera');
 		const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 2000);
 		camera.position.set(0, 750, 0);
 		camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -31,24 +33,36 @@ export default function Tree({ solarSystems, infestedSolarSystems, onSolarSystem
 	}, []);
 
 	const solarSystemComponents = useMemo(
-		() =>
-			solarSystems.map((solarSystem, index) => (
+		() => {
+			console.log('useMemo solarSystemComponents');
+			return solarSystems.map((solarSystem, index) => (
 				<Star key={index} solarSystem={solarSystem} onClick={onSolarSystemClick} />
-			)),
-		[ solarSystems ]
+			));
+		},
+		[]
 	);
 	const jumpComponents = useMemo(
-		() =>
-			jumps.map((jump, index) => (
+		() => {
+			console.log('useMemo jumpComponents');
+			return jumps.map((jump, index) => (
 				<Jump start={solarSystemsById[jump[0]]} end={solarSystemsById[jump[1]]} key={index} />
-			)),
-		[ jumps, solarSystemsById ]
+			));
+		},
+		[]
 	);
+
+	const orbitControlsComponent = <OrbitControls
+		target={selectedSolarSystem ? selectedSolarSystem.position : DEFAULT_CAMERA_FOCUS}
+		enablePan={true}
+		enableRotate={true}
+		enableZoom={true}
+		autoRotateSpeed={0}
+	/>
+
 	return (
 		<Canvas camera={camera}>
-			<OrbitControls enablePan={true} enableRotate={true} enableZoom={true} autoRotateSpeed={0} />
+			{ orbitControlsComponent }
 			<Background color={0xfcfcfc} />
-
 			{solarSystemComponents}
 			{jumpComponents}
 		</Canvas>

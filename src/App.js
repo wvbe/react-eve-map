@@ -15,6 +15,7 @@ export default function App () {
 	const onSolarSystemClick = useCallback((event, solarSystem) => selectSolarSystem(solarSystem), [selectSolarSystem]);
 	return <>
 		<StarMap
+			selectedSolarSystem={selectedSolarSystem}
 			solarSystems={ solarSystemsWithPositions }
 			jumps={ jumps }
 			onSolarSystemClick={onSolarSystemClick}

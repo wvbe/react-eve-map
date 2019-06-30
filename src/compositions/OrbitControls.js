@@ -7,6 +7,7 @@ import {
 
 
 export default function OrbitControlsComponent ({
+	target,
 	damping = 0.2,
 	minAzimuthAngle = -Infinity,
 	maxAzimuthAngle = Infinity,
@@ -15,6 +16,8 @@ export default function OrbitControlsComponent ({
 	enableRotate = true,
 	enableZoom = true
 }) {
+	console.log('OrbitControls');
+
 	const {
 		canvas,
 		camera
@@ -30,10 +33,16 @@ export default function OrbitControlsComponent ({
 		controls.enableRotate = enableRotate;
 		controls.enableZoom = enableZoom;
 
+		// controls.target = new Vector3(x,y,z)
+
 		controls.autoRotate = !!autoRotateSpeed;
 		controls.autoRotateSpeed = autoRotateSpeed;
+
+		console.log(controls);
 		return controls;
-	}, [camera, canvas,
+	}, [
+		camera,
+		canvas,
 		damping,
 		minAzimuthAngle,
 		maxAzimuthAngle,
@@ -48,7 +57,12 @@ export default function OrbitControlsComponent ({
 			console.log('-- dispose ThreeOrbitControls');
 			controls.dispose();
 		}
-	}, []);
+	}, [controls]);
+
+	if (controls.target !== target) {
+		controls.target = target;
+		controls.update();
+	}
 
 	useRender(() => {
 		if (!controls) {
