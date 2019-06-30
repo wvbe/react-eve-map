@@ -5,13 +5,18 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-three-fiber": "^2.2.9",
+    "three": "^0.106.2",
+    "three-orbitcontrols": "^2.102.1",
+    "three-trackballcontrols": "0.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-data": "node ./scripts/lees > public/data.json"
   },
   "eslintConfig": {
     "extends": "react-app"
