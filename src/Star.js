@@ -1,38 +1,8 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
+import { TetrahedronGeometry } from 'three';
 
 function getColorForSecurityStatus(security) {
-	if (security < 0.05) {
-		return 'red';
-	}
-	if (security < 0.15) {
-		return '#b12b04';
-	}
-	if (security < 0.25) {
-		return '#c43e04';
-	}
-	if (security < 0.35) {
-		return '#c45104';
-	}
-	if (security < 0.45) {
-		return '#b16405';
-	}
-	if (security < 0.55) {
-		return '#f0f000';
-	}
-	if (security < 0.65) {
-		return '#90f030';
-	}
-	if (security < 0.75) {
-		return '#00ef00';
-	}
-	if (security < 0.85) {
-		return '#00f048';
-	}
-	if (security < 0.95) {
-		return '#47efbf';
-	}
-	return '#2fefef';
 }
 
 export default function Star ({
@@ -45,20 +15,34 @@ export default function Star ({
 	// Not required
 	onClick
 }) {
-	const securityColor = getColorForSecurityStatus(solarSystem.SECURITY);
+	const securityColor = solarSystem.getColor();
 	const material = useMemo(() => new THREE.MeshBasicMaterial({
-		wireframe: false,
-		color: securityColor,
+		wireframe: true,
+		color: solarSystem.hasIncursion ? 'blue' : securityColor,
 		opacity: 1
 	}), [securityColor]);
 
+	const onMeshClick = onClick ? (event) => {
+		onClick(event, solarSystem);
+		event.stopPropagation();
+	 } : null
+
+	const boxSize = 0.8 * solarSystem.RADIUS/1e12 + (solarSystem.hasIncursion ? 3 : 0);
+
+	if(solarSystem.SOLARSYSTEMNAME === 'Onuse')
+		console.log('Star', solarSystem, solarSystem.hasIncursion);
+
 	return <group>
 		<mesh
-			onClick={onClick ? (event) => onClick(event, solarSystem) : null}
+			onClick={onMeshClick}
 			position={solarSystem.position}
 			material={material}
 		>
-			<boxBufferGeometry attach="geometry" args={[1]} />
+			{
+				solarSystem.hasIncursion ?
+					<tetrahedronBufferGeometry attach="geometry" args={[boxSize]} /> :
+					<boxBufferGeometry attach="geometry" args={[boxSize, boxSize, boxSize]} />
+			}
 		</mesh>
 	</group>
 }

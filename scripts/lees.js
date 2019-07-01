@@ -1,21 +1,30 @@
-
-
-
 function convertRawDataToUsableData() {
 	const rawDataRows = require('./mapSolarSystems.json').Sheet1;
 	const rawDataJumps = require('./universe-pretty.json').jumps;
+	const rawDataIncursions = require('./incursions.json');
+
 	const jumps = rawDataJumps
-		.map(jump => [jump.from, jump.to].sort())
-		.filter((jump, i, all) => i !== all.findIndex(j => j[0] === jump[0] && j[1] === jump[1]));
+		.map((jump) => [ jump.from, jump.to ].sort())
+		.filter((jump, i, all) => i !== all.findIndex((j) => j[0] === jump[0] && j[1] === jump[1]));
 	// [[a, b], []]
 
 	const firstRow = rawDataRows.shift();
-	const solarSystems = rawDataRows.map(row => Object.keys(row).reduce((obj, letter) => ({
-		...obj,
-		[firstRow[letter]]: row[letter]
-	}), {}));
-
-
+	const solarSystems = rawDataRows
+		.map((solarSystem) =>
+			Object.keys(solarSystem).reduce(
+				(obj, letter) => ({
+					...obj,
+					[firstRow[letter]]: solarSystem[letter]
+				}),
+				{}
+			)
+		)
+		.map((solarSystem) => {
+			solarSystem.hasIncursion = rawDataIncursions.some((incursion) =>
+				incursion.infested_solar_systems.includes(solarSystem.SOLARSYSTEMID)
+			);
+			return solarSystem;
+		});
 
 	return {
 		solarSystems,

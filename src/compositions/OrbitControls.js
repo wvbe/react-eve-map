@@ -14,50 +14,41 @@ export default function OrbitControlsComponent ({
 	autoRotateSpeed = false,
 	enablePan = true,
 	enableRotate = true,
-	enableZoom = true
+	enableZoom = true,
+	zoomSpeed = 0.5
 }) {
-	console.log('OrbitControls');
-
 	const {
 		canvas,
 		camera
 	} = useThree();
 
 	const controls = useMemo(() => {
-		console.log('-- new ThreeOrbitControls');
 		const controls = new ThreeOrbitControls(camera, canvas);
-		controls.damping = damping;
-		controls.minAzimuthAngle = minAzimuthAngle;
-		controls.maxAzimuthAngle = maxAzimuthAngle;
-		controls.enablePan = enablePan;
-		controls.enableRotate = enableRotate;
-		controls.enableZoom = enableZoom;
 
-		// controls.target = new Vector3(x,y,z)
-
-		controls.autoRotate = !!autoRotateSpeed;
-		controls.autoRotateSpeed = autoRotateSpeed;
-
-		console.log(controls);
 		return controls;
 	}, [
 		camera,
-		canvas,
-		damping,
-		minAzimuthAngle,
-		maxAzimuthAngle,
-		autoRotateSpeed,
-		enablePan,
-		enableRotate,
-		enableZoom]);
+		canvas]);
 
 	useEffect(() => {
 		// scene.background = new Color(0x000000);
 		return () => {
-			console.log('-- dispose ThreeOrbitControls');
 			controls.dispose();
 		}
 	}, [controls]);
+
+	controls.damping = damping;
+	controls.minAzimuthAngle = minAzimuthAngle;
+	controls.maxAzimuthAngle = maxAzimuthAngle;
+	controls.enablePan = enablePan;
+	controls.enableRotate = enableRotate;
+	controls.enableZoom = enableZoom;
+	controls.zoomSpeed = zoomSpeed;
+
+	// controls.target = new Vector3(x,y,z)
+
+	controls.autoRotate = !!autoRotateSpeed;
+	controls.autoRotateSpeed = autoRotateSpeed;
 
 	if (controls.target !== target) {
 		controls.target = target;
