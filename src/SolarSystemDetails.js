@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import SolarSystemName from './SolarSystemName';
 
 export default function SolarSystemDetails({ solarSystem, jumps, solarSystemsById, onSolarSystemClick }) {
 	const jumpsForSolarSystem = useMemo(
@@ -13,9 +14,19 @@ export default function SolarSystemDetails({ solarSystem, jumps, solarSystemsByI
 	return (
 		<div>
 			<h1>
-				{solarSystem.SOLARSYSTEMNAME} ({Math.round(100 * solarSystem.SECURITY) / 100})
+				<SolarSystemName solarSystem={solarSystem} />
 			</h1>
 
+			{solarSystem.hasIncursion && (
+				<p style={{color: 'red'}}>
+					<b>Incursion in this system</b>
+				</p>
+			)}
+			{solarSystem.isWormhole && (
+				<p style={{color: 'red'}}>
+					<b>Wormhole space</b>
+				</p>
+			)}
 			<table>
 				<tbody>
 					<tr>
@@ -25,6 +36,14 @@ export default function SolarSystemDetails({ solarSystem, jumps, solarSystemsByI
 					<tr>
 						<th>Security</th>
 						<td>{solarSystem.SECURITY}</td>
+					</tr>
+					<tr>
+						<th>Region</th>
+						<td>{solarSystem.REGIONNAME}</td>
+					</tr>
+					<tr>
+						<th>Constellation</th>
+						<td>{solarSystem.CONSTELLATIONNAME}</td>
 					</tr>
 					<tr>
 						<th>Luminosity</th>
@@ -43,8 +62,8 @@ export default function SolarSystemDetails({ solarSystem, jumps, solarSystemsByI
 										solarSystemsById[jump.find((id) => id !== solarSystem.SOLARSYSTEMID)];
 									return (
 										<li key={destination.SOLARSYSTEMID}>
-											<a onClick={() => onSolarSystemClick(null, destination)}>
-												{destination.SOLARSYSTEMNAME}
+											<a href='#' onClick={() => onSolarSystemClick(null, destination)}>
+												<SolarSystemName solarSystem={destination} />
 											</a>;
 										</li>
 									);
@@ -54,11 +73,6 @@ export default function SolarSystemDetails({ solarSystem, jumps, solarSystemsByI
 					</tr>
 				</tbody>
 			</table>
-			{solarSystem.hasIncursion && (
-				<p>
-					<b>Incursion alert</b>
-				</p>
-			)}
 		</div>
 	);
 }

@@ -25,3 +25,7 @@ yarn-error.log*
 
 # npm
 /package-lock.json
+
+
+# Raw downloads from https://developers.eveonline.com/resource/resources
+# /sde

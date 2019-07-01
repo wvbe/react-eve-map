@@ -15,8 +15,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-	"eject": "react-scripts eject",
-	"deploy": "gh-pages --dist build",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages --dist build",
     "build-and-deploy": "npm run build && npm run deploy",
     "build-data": "node ./scripts/lees > src/data.json"
   },
@@ -35,5 +35,10 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "."
+  "homepage": ".",
+  "devDependencies": {
+    "gh-pages": "^2.0.1",
+    "glob": "^7.1.4",
+    "js-yaml": "^3.13.1"
+  }
 }

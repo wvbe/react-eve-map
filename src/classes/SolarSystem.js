@@ -15,6 +15,12 @@ export default class SolarSystem {
 	}
 
 	getColor () {
+		if (this.hasIncursion) {
+			return 'blue';
+		}
+		if (this.isWormhole) {
+			return 'black';
+		}
 		const security = this.SECURITY;
 		if (security < 0.05) {
 			return 'red';

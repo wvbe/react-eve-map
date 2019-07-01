@@ -7,6 +7,7 @@ import { Canvas } from 'react-three-fiber';
 
 import OrbitControls from './compositions/OrbitControls';
 import Background from './compositions/Background';
+import GridHelper from './compositions/GridHelper';
 
 const DEFAULT_CAMERA_FOCUS = new THREE.Vector3(0, 0, 0);
 export default function Tree({ selectedSolarSystem, solarSystems, solarSystemsById, jumps, onSolarSystemClick, children }) {
@@ -25,21 +26,23 @@ export default function Tree({ selectedSolarSystem, solarSystems, solarSystemsBy
 		));
 	}, []);
 
-	const orbitControlsComponent = (
-		<OrbitControls
-			target={selectedSolarSystem ? selectedSolarSystem.position : DEFAULT_CAMERA_FOCUS}
-			enablePan={true}
-			enableRotate={true}
-			enableZoom={true}
-			autoRotateSpeed={0}
-			zoomSpeed={10}
-		/>
-	);
-
 	return (
 		<Canvas camera={camera}>
-			{orbitControlsComponent}
+			<GridHelper
+				size={1000}
+				divisions={50}
+				opacity={0.1}
+			/>
+			<OrbitControls
+				target={selectedSolarSystem ? selectedSolarSystem.position : DEFAULT_CAMERA_FOCUS}
+				enablePan={true}
+				enableRotate={true}
+				enableZoom={true}
+				autoRotateSpeed={0}
+				zoomSpeed={10}
+			/>
 			<Background color={0xfcfcfc} />
+
 			{solarSystemComponents}
 
 			<StarMapJumps

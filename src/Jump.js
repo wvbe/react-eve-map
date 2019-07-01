@@ -4,7 +4,7 @@ import * as THREE from 'three';
 const jumpMaterial = new THREE.LineBasicMaterial({
 	wireframe: true,
 	color: 'black',
-	opacity: 0.1
+	opacity: 0.3
 });
 const jumpInterregionMaterial = new THREE.LineBasicMaterial({
 	wireframe: true,
@@ -16,5 +16,5 @@ export default function Jump ({ start, end }) {
 	geometry.vertices.push(start.position);
 	geometry.vertices.push(end.position);
 
-	return <group><line geometry={geometry} material={ start.REGIONID !== end.REGIONID ? jumpInterregionMaterial : jumpMaterial } /></group>;
+	return <group><line geometry={geometry} material={ start.REGIONNAME !== end.REGIONNAME ? jumpInterregionMaterial : jumpMaterial } /></group>;
 }

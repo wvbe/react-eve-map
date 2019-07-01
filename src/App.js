@@ -24,7 +24,7 @@ export default function App () {
 			jumps={ jumps }
 			onSolarSystemClick={onSolarSystemClick}
 		/>
-		<div style={{ position: 'absolute', top: '30px', left: '30px' }}>
+		<div style={{ position: 'absolute', top: '30px', left: '30px', backgroundColor: 'rgba(255,255,255, 0.8)' }}>
 			<StarMapSearch
 				selectedSolarSystem={selectedSolarSystem}
 				solarSystems={solarSystemsWithPositions}
