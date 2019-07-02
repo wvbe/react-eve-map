@@ -37,7 +37,7 @@ export default function Tree({
 				enableRotate={true}
 				enableZoom={true}
 				autoRotateSpeed={0}
-				zoomSpeed={10}
+				zoomSpeed={3}
 			/>
 			<Background color={0x111111} />
 			<StarMapStars

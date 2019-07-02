@@ -13,10 +13,17 @@ const jumpInterregionMaterial = new THREE.LineBasicMaterial({
 	opacity: 0.5
 });
 
-export default function Jump ({ start, end }) {
+export default function Jump({ start, end }) {
 	const geometry = new THREE.Geometry();
 	geometry.vertices.push(start.position);
 	geometry.vertices.push(end.position);
 
-	return <group><line geometry={geometry} material={ start.REGIONNAME !== end.REGIONNAME ? jumpInterregionMaterial : jumpMaterial } /></group>;
+	return (
+		<group>
+			<line
+				geometry={geometry}
+				material={start.REGIONNAME !== end.REGIONNAME ? jumpInterregionMaterial : jumpMaterial}
+			/>
+		</group>
+	);
 }

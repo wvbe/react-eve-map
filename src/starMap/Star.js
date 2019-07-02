@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
 
-export default function Star ({
+const starMaterialByColor = {};
+export default function Star({
 	// Required
 	solarSystem,
 
@@ -9,34 +10,35 @@ export default function Star ({
 	onClick
 }) {
 	const securityColor = solarSystem.getColor();
-	const material = useMemo(() => new THREE.MeshBasicMaterial({
-		wireframe: false,
-		color: securityColor,
-		opacity: 1
-	}), [securityColor]);
+	if (!starMaterialByColor[securityColor]) {
+		starMaterialByColor[securityColor] = new THREE.MeshBasicMaterial({
+			wireframe: false,
+			color: securityColor,
+			opacity: 1
+		});
+	}
 
-	const onMeshClick = onClick ? (event) => {
-		event.stopPropagation();
-		onClick(solarSystem);
-	 } : null
-
-	const boxSize = 0.3 * solarSystem.RADIUS/1e12 + (solarSystem.hasIncursion ? 3 : 0);
-
-	if(solarSystem.SOLARSYSTEMNAME === 'Onuse')
-		console.log('Star', solarSystem, solarSystem.hasIncursion);
-
-	return <group
-		position={solarSystem.position}>
-		<mesh
-			onClick={onMeshClick}
-			material={material}
-		>
-			{
-				solarSystem.hasIncursion ?
-					<tetrahedronBufferGeometry attach="geometry" args={[boxSize]} /> :
-					<boxBufferGeometry attach="geometry" args={[boxSize, boxSize, boxSize]} />
+	const onMeshClick = onClick
+		? (event) => {
+				event.stopPropagation();
+				onClick(solarSystem);
 			}
-			{/* <Height position={solarSystem.position} /> */}
-		</mesh>
-	</group>
+		: null;
+
+	const boxSize = 0.3 * solarSystem.RADIUS / 1e12 + (solarSystem.hasIncursion ? 3 : 0);
+
+	if (solarSystem.SOLARSYSTEMNAME === 'Onuse') console.log('Star', solarSystem, solarSystem.hasIncursion);
+
+	return (
+		<group position={solarSystem.position}>
+			<mesh onClick={onMeshClick} material={starMaterialByColor[securityColor]}>
+				{solarSystem.hasIncursion ? (
+					<tetrahedronBufferGeometry attach="geometry" args={[ boxSize ]} />
+				) : (
+					<boxBufferGeometry attach="geometry" args={[ boxSize, boxSize, boxSize ]} />
+				)}
+				{/* <Height position={solarSystem.position} /> */}
+			</mesh>
+		</group>
+	);
 }
