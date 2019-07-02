@@ -11,11 +11,11 @@ function getEmojiForSolarSystem (solarSystem) {
 }
 
 export default function SolarSystemName ({ solarSystem }) {
-	return <span style={{ color: solarSystem.getColor() }}>
+	return <b style={{ color: solarSystem.getColor() }} className='read-safety'>
 		{[
 			getEmojiForSolarSystem(solarSystem),
 			solarSystem.SOLARSYSTEMNAME,
 			'(' + Math.round(10 * solarSystem.SECURITY) / 10 + ')'
 		].filter(x => !!x).join(' ')}
-	</span>;
+	</b>
 }

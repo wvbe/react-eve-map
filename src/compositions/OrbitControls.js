@@ -1,12 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import ThreeOrbitControls from 'three-orbitcontrols';
-import {
-	useThree,
-	useRender
-} from 'react-three-fiber';
+import { useThree, useRender } from 'react-three-fiber';
 
-
-export default function OrbitControlsComponent ({
+export default function OrbitControlsComponent({
 	target,
 	damping = 0.2,
 	minAzimuthAngle = -Infinity,
@@ -17,25 +13,26 @@ export default function OrbitControlsComponent ({
 	enableZoom = true,
 	zoomSpeed = 0.5
 }) {
-	const {
-		canvas,
-		camera
-	} = useThree();
+	const { canvas, camera } = useThree();
 
-	const controls = useMemo(() => {
-		const controls = new ThreeOrbitControls(camera, canvas);
+	const controls = useMemo(
+		() => {
+			const controls = new ThreeOrbitControls(camera, canvas);
 
-		return controls;
-	}, [
-		camera,
-		canvas]);
+			return controls;
+		},
+		[ camera, canvas ]
+	);
 
-	useEffect(() => {
-		// scene.background = new Color(0x000000);
-		return () => {
-			controls.dispose();
-		}
-	}, [controls]);
+	useEffect(
+		() => {
+			// scene.background = new Color(0x000000);
+			return () => {
+				controls.dispose();
+			};
+		},
+		[ controls ]
+	);
 
 	controls.damping = damping;
 	controls.minAzimuthAngle = minAzimuthAngle;

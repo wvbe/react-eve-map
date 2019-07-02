@@ -1,0 +1,50 @@
+/******************
+ * Basic styling
+ */
+body {
+	font-family: monospace;
+	font-size: 0.9rem;
+	color: #cccccc
+
+}
+a {
+	color: lightskyblue;
+}
+
+td, th {
+	text-align: left;
+	vertical-align: top;
+}
+
+th {
+	color: #999999;
+}
+input::placeholder {
+	color: #999999;
+}
+input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.25rem 0.5rem;
+	border: none;
+	border-bottom: 1px solid #999999;
+	color: inherit;
+	font-family: inherit;
+	font-size: 1.2rem;
+}
+
+/******************
+ * Utility classes
+ */
+.read-safety {
+	background-color: black;
+}
+
+/******************
+ * Specific elements
+ */
+#ui {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+}

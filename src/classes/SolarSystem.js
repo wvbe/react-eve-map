@@ -16,7 +16,7 @@ export default class SolarSystem {
 
 	getColor () {
 		if (this.hasIncursion) {
-			return 'blue';
+			return 'lightgoldenrodyellow';
 		}
 		if (this.isWormhole) {
 			return 'black';

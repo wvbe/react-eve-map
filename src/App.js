@@ -1,10 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import StarMap from './StarMap';
-import StarMapSearch from './StarMapSearch';
-import SolarSystemDetails from './SolarSystemDetails';
+import SearchBox from './SearchBox';
+import SolarSystemDetails from './solarSystem/SolarSystemDetails';
+import StarMapControls from './StarMapControls';
 
 import { solarSystems, jumps } from './data.json';
 import SolarSystem from './classes/SolarSystem';
+
+import './styles.css';
 
 const solarSystemsWithPositions = solarSystems.map(solarSystem => new SolarSystem(solarSystem))
 
@@ -15,26 +18,36 @@ const solarSystemsById = solarSystemsWithPositions.reduce((byId, con) => {
 
 export default function App () {
 	const [selectedSolarSystem, selectSolarSystem] = useState(null);
-	const onSolarSystemClick = useCallback((event, solarSystem) => selectSolarSystem(solarSystem), [selectSolarSystem]);
+	const [showSolarSystems, setShowSolarSystems] = useState(true);
+	const [showJumps, setShowJumps] = useState(false);
+
 	return <>
 		<StarMap
+			jumps={ jumps }
+			onSolarSystemClick={selectSolarSystem}
 			selectedSolarSystem={selectedSolarSystem}
+			showJumps={showJumps}
+			showSolarSystems={showSolarSystems}
 			solarSystems={ solarSystemsWithPositions }
 			solarSystemsById={solarSystemsById}
-			jumps={ jumps }
-			onSolarSystemClick={onSolarSystemClick}
 		/>
-		<div style={{ position: 'absolute', top: '30px', left: '30px', backgroundColor: 'rgba(255,255,255, 0.8)' }}>
-			<StarMapSearch
+		<div id='ui'>
+			<StarMapControls
+				showJumps={showJumps}
+				showSolarSystems={showSolarSystems}
+				setShowSolarSystems={setShowSolarSystems}
+				setShowJumps={setShowJumps}
+			/>
+			<SearchBox
 				selectedSolarSystem={selectedSolarSystem}
 				solarSystems={solarSystemsWithPositions}
-				onSolarSystemClick={onSolarSystemClick}
+				onSolarSystemClick={selectSolarSystem}
 			/>
 			<SolarSystemDetails
 				solarSystem={selectedSolarSystem}
 				solarSystemsById={solarSystemsById}
 				jumps={ jumps }
-				onSolarSystemClick={onSolarSystemClick}
+				onSolarSystemClick={selectSolarSystem}
 			/>
 		</div>
 	</>
