@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import Star from './Star';
+import Star from './StarSprite';
 
 export default function StarMapJumps({ solarSystems, onSolarSystemClick, visible = true }) {
 	const starComponents = useMemo(() => solarSystems.map((solarSystem, index) => (

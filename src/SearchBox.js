@@ -2,7 +2,6 @@ import React, { useState, useMemo, useCallback } from 'react';
 import SolarSystemSearchResult from './solarSystem/SolarSystemSearchResult';
 
 function PageNumbers ({ pageNumbers, onClick }) {
-	console.log('P', pageNumbers.length, pageNumbers);
 	return pageNumbers.map((i) => <span key={i}>
 		<a href="#" onClick={() => onClick(i)}>{i + 1}</a>
 		{' '}

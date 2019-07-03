@@ -48,3 +48,6 @@ input {
 	top: 30px;
 	left: 30px;
 }
+#ui:hover {
+	background-color: rgba(0,0,0,0.5)
+}

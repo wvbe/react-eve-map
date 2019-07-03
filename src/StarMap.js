@@ -21,7 +21,6 @@ export default function Tree({
 	showSolarSystems
 }) {
 	const camera = useMemo(() => {
-		console.log('useMemo camera');
 		const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 2000);
 		camera.position.set(0, 750, 0);
 		camera.lookAt(new THREE.Vector3(0, 0, 0));

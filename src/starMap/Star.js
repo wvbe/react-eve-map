@@ -27,8 +27,6 @@ export default function Star({
 
 	const boxSize = 0.3 * solarSystem.RADIUS / 1e12 + (solarSystem.hasIncursion ? 3 : 0);
 
-	if (solarSystem.SOLARSYSTEMNAME === 'Onuse') console.log('Star', solarSystem, solarSystem.hasIncursion);
-
 	return (
 		<group position={solarSystem.position}>
 			<mesh onClick={onMeshClick} material={starMaterialByColor[securityColor]}>
