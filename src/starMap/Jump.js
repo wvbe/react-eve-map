@@ -2,15 +2,11 @@ import React from 'react';
 import * as THREE from 'three';
 
 const jumpMaterial = new THREE.LineBasicMaterial({
-	wireframe: true,
-	color: 0x555555,
-	opacity: 1
+	color: 0x444422
 });
 
 const jumpInterregionMaterial = new THREE.LineBasicMaterial({
-	wireframe: true,
-	color: 'blue',
-	opacity: 0.5
+	color: 0x333366
 });
 
 export default function Jump({ start, end }) {

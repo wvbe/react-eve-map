@@ -13,13 +13,21 @@ export default class SolarSystem {
 
 		this.position = getVector3(jsonData);
 	}
-
-	getColor () {
+	getSpriteName () {
 		if (this.hasIncursion) {
-			return 'lightgoldenrodyellow';
+			return 'triangleDown';
 		}
 		if (this.isWormhole) {
-			return 'black';
+			return 'triangleUp';
+		}
+		return 'circle';
+	}
+	getColor () {
+		if (this.hasIncursion) {
+			return '#8888ff';
+		}
+		if (this.isWormhole) {
+			return 'white';
 		}
 		const security = this.SECURITY;
 		if (security < 0.05) {

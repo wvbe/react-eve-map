@@ -6,10 +6,16 @@ import StarMapControls from './StarMapControls';
 
 import { solarSystems, jumps } from './data.json';
 import SolarSystem from './classes/SolarSystem';
-
+import { spriteNames } from './sprites';
 import './styles.css';
+import SpriteIcon from './sprites/SpriteIcon';
 
-const solarSystemsWithPositions = solarSystems.map(solarSystem => new SolarSystem(solarSystem))
+const solarSystemsWithPositions = solarSystems
+	// Hide wormholes for now, need a better UI transition from k-space to show wormhole/abyssal universe
+	.filter(solarSystems => !solarSystems.isWormhole)
+
+	// Instantiate objects
+	.map(solarSystem => new SolarSystem(solarSystem))
 
 const solarSystemsById = solarSystemsWithPositions.reduce((byId, con) => {
 	byId[con.SOLARSYSTEMID] = con;
@@ -50,5 +56,7 @@ export default function App () {
 				onSolarSystemClick={selectSolarSystem}
 			/>
 		</div>
+
+
 	</>
 }

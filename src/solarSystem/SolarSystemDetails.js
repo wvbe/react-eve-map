@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react';
 import SolarSystemName from './SolarSystemName';
+import SpriteHtmlIcon from '../sprites/SpriteIcon';
 
+function SolarSystemIcon ({ solarSystem, ...rest }) {
+	return <SpriteHtmlIcon name={solarSystem.getSpriteName()} color={ solarSystem.getColor()} { ...rest} />
+}
 export default function SolarSystemDetails({ solarSystem, jumps, solarSystemsById, onSolarSystemClick }) {
 	const jumpsForSolarSystem = useMemo(
 		() => (solarSystem ? jumps.filter((jump) => jump.includes(solarSystem.SOLARSYSTEMID)) : []),
@@ -16,7 +20,6 @@ export default function SolarSystemDetails({ solarSystem, jumps, solarSystemsByI
 			<h1>
 				<SolarSystemName solarSystem={solarSystem} />
 			</h1>
-
 			{solarSystem.hasIncursion && (
 				<p style={{color: 'red'}}>
 					<b className='read-safety'>Incursion in this system</b>

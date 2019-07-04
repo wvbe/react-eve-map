@@ -1,12 +1,12 @@
 import React from 'react';
 
 function getEmojiForSolarSystem (solarSystem) {
-	if (solarSystem.hasIncursion) {
-		return '⚠️';
-	}
-	if (solarSystem.isWormhole) {
-		return '🕳️';
-	}
+	// if (solarSystem.hasIncursion) {
+	// 	return '⚠️';
+	// }
+	// if (solarSystem.isWormhole) {
+	// 	return '🕳️';
+	// }
 	return null;
 }
 

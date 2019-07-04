@@ -1,14 +1,9 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
+import { getCanvas } from '../sprites';
 
-import starSpriteUrl from './starSprite.png';
 const starMaterialByColor = {};
-var spriteMap = new THREE.TextureLoader().load(starSpriteUrl);
-var spriteMaterial = new THREE.SpriteMaterial({
-	map: spriteMap,
-	color: 0xffffff,
-	sizeAttenuation: false
-});
+
 export default function Star({
 	// Required
 	solarSystem,
@@ -16,6 +11,17 @@ export default function Star({
 	// Not required
 	onClick
 }) {
+	const spriteName = solarSystem.getSpriteName();
+	const securityColor = solarSystem.getColor();
+	const spriteCacheName = [spriteName, securityColor].join('/');
+
+	if (!starMaterialByColor[spriteCacheName]) {
+		starMaterialByColor[spriteCacheName] = new THREE.SpriteMaterial({
+			map: new THREE.CanvasTexture(getCanvas(spriteName, undefined, undefined, securityColor)),
+			sizeAttenuation: false
+		});
+	}
+
 	const onMeshClick = onClick
 		? (event) => {
 				event.stopPropagation();
@@ -25,7 +31,7 @@ export default function Star({
 
 	return (
 		<group position={solarSystem.position}>
-			<sprite material={spriteMaterial} scale={[0.01, 0.01, 0.01]} onClick={onMeshClick} />
+			<sprite material={starMaterialByColor[spriteCacheName]} scale={[0.01, 0.01, 0.01]} onClick={onMeshClick} />
 		</group>
 	);
 }
