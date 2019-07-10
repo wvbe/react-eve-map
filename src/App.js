@@ -1,14 +1,14 @@
+import LoginBox from './LoginBox';
 import React, { useState, useCallback } from 'react';
-import StarMap from './StarMap';
 import SearchBox from './SearchBox';
 import SolarSystemDetails from './solarSystem/SolarSystemDetails';
+import StarMap from './StarMap';
 import StarMapControls from './StarMapControls';
+import UserBox from './UserBox';
 
 import { solarSystems, jumps } from './data.json';
 import SolarSystem from './classes/SolarSystem';
-import { spriteNames } from './sprites';
 import './styles.css';
-import SpriteIcon from './sprites/SpriteIcon';
 
 const solarSystemsWithPositions = solarSystems
 	// Hide wormholes for now, need a better UI transition from k-space to show wormhole/abyssal universe
@@ -44,6 +44,9 @@ export default function App () {
 				setShowSolarSystems={setShowSolarSystems}
 				setShowJumps={setShowJumps}
 			/>
+			<LoginBox />
+			<UserBox />
+			{/* <PilotBox /> */}
 			<SearchBox
 				selectedSolarSystem={selectedSolarSystem}
 				solarSystems={solarSystemsWithPositions}
